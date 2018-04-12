@@ -1,0 +1,104 @@
+swagger: '2.0'
+info:
+  version: 0.1.0
+  title: Datastore
+  description: Datastore
+host: localhost
+basePath: /api
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  '/datastores/{id}':
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+    get:
+      operationId: GET-datastore
+      summary: Get Datastore
+      tags:
+        - Datastores
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/datastore-output'
+    put:
+      operationId: PUT-datastore
+      summary: Update Datastore
+      tags:
+        - Datastores
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/datastore-input'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/datastore-output'
+    delete:
+      operationId: DELETE-datastore
+      summary: Delete Datastore
+      tags:
+        - Datastores
+      responses:
+        '204':
+          description: ''
+  /datastores:
+    get:
+      operationId: LIST-datastores
+      summary: List Datastores
+      tags:
+        - Datastores
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/datastore-output'
+    post:
+      operationId: POST-datastore
+      summary: Create Datastore
+      tags:
+        - Datastores
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/datastore-input'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/datastore-output'
+definitions:
+  datastore-input:
+    title: Datastore Input
+    type:
+      - object
+      - string
+    description: Datastore Id
+    properties:
+      datasoreId:
+        type: string
+        format: uuid
+    required:
+      - datasoreId
+  datastore-output:
+    title: Datastore Output
+    allOf:
+      - type: object
+        properties:
+          name:
+            type: string
+        required:
+          - name
+      - $ref: '#/definitions/datastore-input'
